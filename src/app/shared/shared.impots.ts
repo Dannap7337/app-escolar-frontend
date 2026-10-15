@@ -16,4 +16,3 @@ export const SHARED_IMPORTS = [
     MatDividerModule,
     MatIconModule
 ]
-
