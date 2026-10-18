@@ -1,24 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { SHARED_IMPORTS } from '../../shared/shared.impots';
-import { Router } from 'express';
+import { Router } from '@angular/router';
+import { SHARED_IMPORTS } from '../../shared/shared.imports';
 
 @Component({
   selector: 'app-login-screen',
+  standalone: true,
   imports: [
     ...SHARED_IMPORTS
   ],
   templateUrl: './login-screen.html',
   styleUrl: './login-screen.scss',
 })
-export class LoginScreen implements OnInit{
-  // Inyeccion de dependencias
+export class LoginScreen implements OnInit {
   public router = inject(Router);
 
-  // Se definen las variables globales
-  public username:string = '';
+  public username: string = '';
   public password: string = '';
   public load: boolean = false;
-  public errors:any = {};
+  public errors: any = {};
   public typeInput: string = 'password';
 
   constructor() { }
@@ -26,9 +25,9 @@ export class LoginScreen implements OnInit{
   ngOnInit(): void {}
 
   public login() {}
-  public showPassword() {}
-  public registrar () {}
+  public showPassword() {
+    this.typeInput = this.typeInput === 'password' ? 'text' : 'password';
+  }
+  public registrar() {}
   public olvideContrasena() {}
-
 }
-
