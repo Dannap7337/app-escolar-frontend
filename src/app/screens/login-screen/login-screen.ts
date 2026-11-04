@@ -12,15 +12,18 @@ import { SHARED_IMPORTS } from '../../shared/shared.imports';
   styleUrl: './login-screen.scss',
 })
 export class LoginScreen implements OnInit {
-  public router = inject(Router);
-
+  // Definición de variable globales que se utilizaran en el componente
   public username: string = '';
   public password: string = '';
   public load: boolean = false;
   public errors: any = {};
+
+  //Tipo de campo para la contraseña
   public typeInput: string = 'password';
 
-  constructor() { }
+  //Definir el router para la navegación entre pantallas
+  private router: Router = inject(Router);
+  constructor() {}
   
   ngOnInit(): void {}
 
@@ -28,6 +31,8 @@ export class LoginScreen implements OnInit {
   public showPassword() {
     this.typeInput = this.typeInput === 'password' ? 'text' : 'password';
   }
-  public registrar() {}
+  public registrar() {
+    this.router.navigate(['registro-usuarios']);
+  }
   public olvideContrasena() {}
 }

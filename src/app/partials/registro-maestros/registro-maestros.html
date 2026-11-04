@@ -1,0 +1,169 @@
+<div class="wrapper">
+    <div class="section-registro">
+        <div class="body-registro">
+            <div class="row mt-3 mb-3">
+                <div class="form-group col-12">
+                    <label for="tipo_usuario" class="title-user">Ingresa los datos del maestro</label>
+                </div>
+            </div>
+
+            <!-- ID -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>ID de trabajador</mat-label>
+                <input matInput [(ngModel)]="maestro.id_trabajador" name="id_trabajador"
+                    placeholder="Escribe ID de trabajador" />
+            </mat-form-field>
+            @if (errors.id_trabajador) {
+            <div class="invalid-feedback">{{ errors.id_trabajador }}</div>
+            }
+
+            <!-- NOMBRE -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput [(ngModel)]="maestro.first_name" placeholder="Escribe nombre"
+                    (keypress)="soloLetras($event)" />
+            </mat-form-field>
+            @if (errors.first_name) {
+            <div class="invalid-feedback">{{ errors.first_name }}</div>
+            }
+
+            <!-- APELLIDOS -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Apellidos</mat-label>
+                <input matInput [(ngModel)]="maestro.last_name" placeholder="Escribe apellidos"
+                    (keypress)="soloLetras($event)" />
+            </mat-form-field>
+            @if (errors.last_name) {
+            <div class="invalid-feedback">{{ errors.last_name }}</div>
+            }
+
+            <!-- CORREO ELECTRONICO -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput [(ngModel)]="maestro.email" placeholder="Escribe correo electrónico"
+                    [disabled]="editar" />
+            </mat-form-field>
+            @if (errors.email) {
+            <div class="invalid-feedback">{{ errors.email }}</div>
+            }
+
+            <!-- CONTRASEÑA -->
+            @if (!editar) {
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [(ngModel)]="maestro.password" [type]="inputType_1" placeholder="Escribe contraseña" />
+                <mat-icon matSuffix class="eye-icon" (click)="showPassword()">
+                    {{ hide_1 ? 'visibility_off' : 'visibility' }}
+                </mat-icon>
+            </mat-form-field>
+            }
+            @if (errors.password) {
+            <div class="invalid-feedback">{{ errors.password }}</div>
+            }
+
+            <!-- CONFIRMAR CONTRASEÑA -->
+            @if (!editar) {
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Confirmar contraseña</mat-label>
+                <input matInput [(ngModel)]="maestro.confirmar_password" [type]="inputType_2"
+                    placeholder="Confirma la contraseña" />
+                <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">
+                    {{ hide_2 ? 'visibility_off' : 'visibility' }}
+                </mat-icon>
+            </mat-form-field>
+            }
+            @if (errors.confirmar_password) {
+            <div class="invalid-feedback">{{ errors.confirmar_password }}</div>
+            }
+
+            <!-- FECHA DE NACIMIENTO -->
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="maestro.fecha_nacimiento"
+                    placeholder="DD/MM/AAAA">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (errors.fecha_nacimiento) {
+                <mat-error>{{ errors.fecha_nacimiento }}</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- TELEFONO -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput [(ngModel)]="maestro.telefono" mask="(000) 000-0000" placeholder="Escribe teléfono" />
+            </mat-form-field>
+            @if (errors.telefono) {
+            <div class="invalid-feedback">{{ errors.telefono }}</div>
+            }
+
+            <!-- RFC -->
+            <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
+                <mat-label>RFC</mat-label>
+                <input matInput minlength="12" maxlength="13" [(ngModel)]="maestro.rfc" placeholder="Escribe RFC"
+                    style="text-transform: uppercase" />
+                <mat-hint align="end">{{ maestro.rfc?.length || 0 }}/13</mat-hint>
+            </mat-form-field>
+            @if (errors.rfc) {
+            <div class="invalid-feedback">{{ errors.rfc }}</div>
+            }
+
+            <!-- CUBICULO -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Cubículo</mat-label>
+                <input matInput [(ngModel)]="maestro.cubiculo" placeholder="Escribe el cubículo" />
+            </mat-form-field>
+            @if (errors.cubiculo) {
+            <div class="invalid-feedback">{{ errors.cubiculo }}</div>
+            }
+
+            <!-- AREA DE INVESTIGACION -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Área de investigación</mat-label>
+                <input matInput [(ngModel)]="maestro.area_investigacion"
+                    placeholder="Escribe el área de investigación" />
+            </mat-form-field>
+            @if (errors.area_investigacion) {
+            <div class="invalid-feedback">{{ errors.area_investigacion }}</div>
+            }
+
+            <!-- MATERIAS A IMPARTIR -->
+            <div class="materias-section mt-3 mb-4">
+                <label class="d-block mb-3" style="font-weight: 500; font-size: 16px;">Selecciona las materias a
+                    impartir</label>
+
+                <div class="d-flex flex-column gap-2">
+                    <mat-checkbox (change)="onMateriaChange($event, 'Aplicaciones Web')">Aplicaciones Web</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Programación 1')">Programación 1</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Bases de datos')">Bases de datos</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Tecnologías Web')">Tecnologías Web</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Minería de datos')">Minería de datos</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Desarrollo móvil')">Desarrollo móvil</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Estructuras de datos')">Estructuras de
+                        datos</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Administración de redes')">Administración de
+                        redes</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Ingeniería de Software')">Ingeniería de
+                        Software</mat-checkbox>
+                    <mat-checkbox (change)="onMateriaChange($event, 'Administración de S.O.')">Administración de
+                        S.O.</mat-checkbox>
+                </div>
+
+                @if (errors.materias) {
+                <div class="invalid-feedback d-block mt-2">{{ errors.materias }}</div>
+                }
+            </div>
+
+            <div class="section-buttons">
+                <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+
+                @if (!editar) {
+                <button class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                }
+
+                @if (editar) {
+                <button class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+                }
+            </div>
+        </div>
+    </div>
